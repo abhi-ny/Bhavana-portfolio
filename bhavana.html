@@ -1,0 +1,503 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="theme-color" content="#0b0d10" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<title>Venkata Bhavana Muli — Portfolio</title>
+  <meta name="description" content="Portfolio of Venkata Bhavana Muli — Front‑End Developer & ECE undergraduate focused on clean, accessible, responsive web experiences." />
+
+  <!-- Fonts & Icons -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet" />
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet" />
+
+  <style>
+    /* =========================
+       Design System / Tokens
+       ========================= */
+    :root {
+      --bg: #0b0d10;
+      --panel: #0f1217;
+      --text: #e9eef5;
+      --muted: #a8b0bb;
+      --brand: #21d4fd; /* primary */
+      --brand-2: #b721ff; /* accent */
+      --ok: #27d980;
+      --danger: #ff7676;
+      --ring: rgba(33, 212, 253, 0.45);
+      --shadow: rgba(2, 8, 20, 0.6);
+      --radius: 16px;
+      --radius-sm: 12px;
+      --maxw: 1120px;
+    }
+
+    /* Global Reset */
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      font-family: 'Inter', system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, 'Helvetica Neue', Arial, 'Noto Sans', 'Apple Color Emoji', 'Segoe UI Emoji';
+      color: var(--text);
+      background: radial-gradient(1200px 800px at 10% -10%, rgba(183, 33, 255, 0.12), transparent 60%),
+                  radial-gradient(1000px 700px at 110% 10%, rgba(33, 212, 253, 0.10), transparent 60%),
+                  var(--bg);
+      line-height: 1.6;
+    }
+
+    /* Subtle animated grid */
+    body::before {
+      content: "";
+      position: fixed; inset: 0;
+      background: linear-gradient(transparent 95%, rgba(255,255,255,0.05) 95%) 0 0 / 24px 24px,
+                  linear-gradient(90deg, transparent 95%, rgba(255,255,255,0.05) 95%) 0 0 / 24px 24px;
+      mask-image: radial-gradient(circle at 50% 0%, black 40%, transparent 70%);
+      pointer-events: none;
+      opacity: .35;
+    }
+
+    /* Container */
+    .container { width: min(100%, var(--maxw)); margin-inline: auto; padding-inline: 24px; }
+
+    /* =========================
+       Header / Nav
+       ========================= */
+    header {
+      position: sticky; top: 0; z-index: 50;
+      backdrop-filter: saturate(1.2) blur(10px);
+      background: linear-gradient(to right, rgba(11,13,16,.85), rgba(11,13,16,.65));
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+    }
+    .nav {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 14px 0;
+    }
+    .brand { display: flex; gap: 12px; align-items: center; text-decoration: none; color: var(--text); }
+    .brand__logo {
+      width: 40px; height: 40px; border-radius: 12px;
+      background: conic-gradient(from 220deg, var(--brand), var(--brand-2));
+      box-shadow: 0 10px 30px -10px var(--ring);
+    }
+    .brand__name { font-weight: 800; letter-spacing: .5px; }
+
+    .nav__links { display: flex; gap: 18px; align-items: center; }
+    .nav__links a {
+      text-decoration: none; color: var(--muted); font-weight: 600; font-size: .98rem;
+      padding: 8px 12px; border-radius: 10px; transition: .2s ease; display: inline-flex; align-items: center; gap: 8px;
+    }
+    .nav__links a:hover, .nav__links a[aria-current="page"] { color: var(--text); background: rgba(255,255,255,0.05); }
+
+    .btn { display: inline-flex; align-items: center; gap: 10px; border-radius: 999px; padding: 12px 18px; min-height: 44px; font-weight: 700; border: 1px solid rgba(255,255,255,0.12); text-decoration: none; color: var(--text); transition: .2s ease; }
+    .btn--primary { border-color: transparent; background: linear-gradient(120deg, var(--brand), var(--brand-2)); color: #0b0d10; }
+    .btn--ghost:hover { background: rgba(255,255,255,0.08); }
+
+    /* Mobile nav */
+    .nav__menu-btn { display: none; background: none; border: none; color: var(--text); font-size: 1.35rem; }
+    @media (max-width: 900px) {
+      .nav__menu-btn { display: inline-flex; }
+      .nav__links { position: fixed; inset: 64px 16px auto 16px; background: var(--panel); border: 1px solid rgba(255,255,255,0.08); border-radius: 14px; padding: 12px; flex-direction: column; align-items: stretch; gap: 8px; box-shadow: 0 20px 60px var(--shadow); transform: translateY(-16px); opacity: 0; pointer-events: none; transition: .2s ease; }
+      .nav__links[data-open="true"] { transform: none; opacity: 1; pointer-events: auto; }
+    }
+
+    /* =========================
+       Hero
+       ========================= */
+    .hero { padding: 72px 0 40px; }
+    .hero__wrap { display: grid; grid-template-columns: 1.1fr .9fr; gap: 32px; align-items: center; }
+    @media (max-width: 900px) { .hero__wrap { grid-template-columns: 1fr; } }
+
+    .eyebrow { display: inline-flex; gap: 8px; align-items: center; background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.1); padding: 6px 10px; border-radius: 999px; font-size: .82rem; color: var(--muted); }
+
+    h1 { font-family: 'Playfair Display', serif; font-weight: 700; font-size: clamp(2.1rem, 5vw, 3.2rem); margin: 12px 0 10px; line-height: 1.1; }
+    .hero p { color: var(--muted); max-width: 60ch; }
+
+    .hero__cta { display: flex; gap: 12px; margin-top: 18px; flex-wrap: wrap; }
+
+    .avatar {
+      width: 280px; aspect-ratio: 1; border-radius: 50%;
+      background: linear-gradient(180deg, rgba(33,212,253,.2), rgba(183,33,255,.2));
+      padding: 6px; margin-inline: auto; position: relative;
+      box-shadow: 0 30px 80px -20px var(--ring);
+    }
+    .avatar img { width: 100%; height: 100%; object-fit: cover; border-radius: 50%; display: block; }
+
+    .socials { display: flex; gap: 12px; margin-top: 14px; }
+    .socials a { width: 44px; height: 44px; border-radius: 999px; display: grid; place-items: center; color: var(--text); background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.1); text-decoration: none; transition: .2s ease; }
+    .socials a:hover { transform: translateY(-2px); background: rgba(255,255,255,0.1); }
+
+    /* =========================
+       Sections / Cards
+       ========================= */
+    section { padding: 56px 0; scroll-margin-top: 84px; }
+    .section__head { display: flex; align-items: baseline; justify-content: space-between; margin-bottom: 22px; }
+    .section__title { font-size: clamp(1.3rem, 3vw, 1.8rem); font-weight: 800; letter-spacing: .3px; }
+    .section__sub { color: var(--muted); font-size: .95rem; }
+
+    .grid { display: grid; gap: 16px; grid-template-columns: repeat(12, minmax(0, 1fr)); }
+    .card { grid-column: span 4; background: linear-gradient(180deg, rgba(255,255,255,0.04), rgba(255,255,255,0.02)); border: 1px solid rgba(255,255,255,0.08); border-radius: var(--radius); padding: 18px; box-shadow: 0 16px 60px -25px var(--shadow); }
+    @media (max-width: 900px) { .card { grid-column: span 12; } }
+
+    .badge { display: inline-flex; align-items: center; gap: 8px; background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.08); color: var(--text); padding: 6px 10px; border-radius: 999px; font-size: .85rem; font-weight: 600; }
+
+    /* Education timeline */
+    .timeline { position: relative; padding-left: 26px; }
+    .timeline::before { content: ""; position: absolute; left: 10px; top: 4px; bottom: 4px; width: 2px; background: linear-gradient(var(--brand), var(--brand-2)); opacity: .6; }
+    .timeline__item { position: relative; margin-bottom: 16px; }
+    .timeline__item::before { content: ""; position: absolute; left: -1px; top: 6px; width: 12px; height: 12px; border-radius: 50%; background: radial-gradient(circle at 30% 30%, #fff, var(--brand)); box-shadow: 0 0 0 4px rgba(33,212,253,.15); }
+
+    /* Skills */
+    .skills { display: flex; gap: 10px; flex-wrap: wrap; }
+    .chip { background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.1); border-radius: 999px; padding: 8px 12px; font-weight: 600; }
+
+    /* Projects */
+    .project { display: grid; gap: 12px; }
+    .project h4 { margin: 0; }
+    .project p { color: var(--muted); margin: 0; }
+
+    /* Certificates */
+    .cert { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+    .cert a { text-decoration: none; }
+
+    /* Contact */
+    form { display: grid; gap: 12px; grid-template-columns: 1fr 1fr; }
+    form input, form textarea { width: 100%; padding: 12px 14px; border-radius: 12px; border: 1px solid rgba(255,255,255,0.12); background: rgba(255,255,255,0.04); color: var(--text); }
+    form textarea { grid-column: span 2; min-height: 140px; resize: vertical; }
+    form .actions { grid-column: span 2; display: flex; gap: 10px; align-items: center; justify-content: space-between; }
+
+    /* Footer */
+    footer { padding: 32px 0 40px; color: var(--muted); font-size: .92rem; }
+
+    /* Focus styles */
+    :where(a, button, input, textarea):focus-visible { outline: 2px solid var(--brand); outline-offset: 2px; box-shadow: 0 0 0 6px var(--ring); border-radius: 12px; }
+
+    /* Motion preference */
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      *, *::before, *::after { animation: none !important; transition: none !important; }
+    }
+      /* Responsive grids for tablets */
+    @media (max-width: 1200px) { .card { grid-column: span 6; } }
+
+    /* Contact form: stack on mobile */
+    @media (max-width: 700px) {
+      form { grid-template-columns: 1fr; }
+      form textarea, form .actions { grid-column: span 1; }
+    }
+  </style>
+</head>
+<body>
+  <!-- =========================
+       Header/Nav
+       ========================= -->
+  <header>
+    <div class="container nav">
+      <a class="brand" href="#top" aria-label="Homepage">
+        <span class="brand__logo" aria-hidden="true"></span>
+        <strong class="brand__name">Bhavana</strong>
+      </a>
+
+      <button class="nav__menu-btn" aria-expanded="false" aria-controls="menu" title="Open menu">
+        <i class="fa-solid fa-bars"></i>
+      </button>
+
+      <nav id="menu" class="nav__links" data-open="false">
+        <a href="#about">About</a>
+        <a href="#education">Education</a>
+        <a href="#skills">Skills</a>
+        <a href="#projects">Projects</a>
+        <a href="#certificates">Certificates</a>
+        <a class="btn btn--ghost" href="#contact"><i class="fa-regular fa-paper-plane"></i>Contact</a>
+        <a class="btn btn--primary" href="bhavana.pdf" download><i class="fa-regular fa-file-lines"></i>Download CV</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- =========================
+       Hero
+       ========================= -->
+  <main id="top" class="hero">
+    <div class="container hero__wrap">
+      <div>
+        <span class="eyebrow"><i class="fa-solid fa-sparkles"></i> Front‑End Developer • ECE (Final Year)</span>
+        <h1>Hello, I’m <span style="background: linear-gradient(120deg, var(--brand), var(--brand-2)); -webkit-background-clip: text; background-clip: text; color: transparent;">Venkata Bhavana Muli</span>.</h1>
+        <p>
+          I craft clean, accessible, and responsive interfaces. Passionate about building useful products,
+          learning fast, and collaborating with great teams.
+        </p>
+        <div class="hero__cta">
+          <a class="btn btn--primary" href="#projects"><i class="fa-solid fa-code"></i> View Projects</a>
+          <a class="btn btn--ghost" href="https://github.com/Bhavanam-BH" target="_blank" rel="noreferrer noopener"><i class="fa-brands fa-github"></i> GitHub</a>
+          <a class="btn btn--ghost" href="https://www.linkedin.com/in/venkata-bhavana-muli-0b807a377" target="_blank" rel="noreferrer noopener"><i class="fa-brands fa-linkedin"></i> LinkedIn</a>
+        </div>
+        <div class="socials" aria-label="Social links">
+          <a href="https://github.com/Bhavanam-BH" aria-label="GitHub"><i class="fa-brands fa-github"></i></a>
+          <a href="https://www.linkedin.com/in/venkata-bhavana-muli-0b807a377" aria-label="LinkedIn"><i class="fa-brands fa-linkedin"></i></a>
+        </div>
+      </div>
+      <div>
+        <div class="avatar" aria-hidden="true">
+          <!-- Replace src with your profile photo path (relative file or hosted URL). -->
+          <img 
+            src="assets/profile.jpg" 
+            srcset="assets/profile_320.jpg 320w, assets/profile_480.jpg 480w, assets/profile_640.jpg 640w, assets/profile.jpg 800w"
+            sizes="(max-width: 600px) 60vw, (max-width: 900px) 40vw, 280px"
+            width="560" height="560"
+            loading="lazy" decoding="async"
+            alt="Portrait of Venkata Bhavana Muli" />
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- =========================
+       About
+       ========================= -->
+  <section id="about">
+    <div class="container">
+      <div class="section__head">
+        <h2 class="section__title">About</h2>
+        <p class="section__sub">Who I am & what I care about</p>
+      </div>
+      <div class="grid">
+        <article class="card" style="grid-column: span 8">
+          <p>
+            Final‑year Electronics & Communication Engineering student, transitioning into front‑end development.
+            Comfortable with semantic HTML, modern CSS, and vanilla JavaScript, with a growing interest in component‑driven UI and accessibility.
+            I’m seeking an internship where I can contribute to production features while leveling up my skills.
+          </p>
+        </article>
+        <aside class="card" style="grid-column: span 4">
+          <div class="badge" title="Location"><i class="fa-solid fa-location-dot"></i> India</div>
+          <div style="height: 10px"></div>
+          <div class="badge" title="Availability"><i class="fa-regular fa-clock"></i> Available for Internship</div>
+        </aside>
+      </div>
+    </div>
+  </section>
+
+  <!-- =========================
+       Education
+       ========================= -->
+  <section id="education">
+    <div class="container">
+      <div class="section__head">
+        <h2 class="section__title">Education</h2>
+        <p class="section__sub">Academic milestones so far</p>
+      </div>
+
+      <div class="grid">
+        <div class="card" style="grid-column: span 12">
+          <div class="timeline">
+            <div class="timeline__item">
+              <h4>B.Tech (ECE), Bapatla Engineering College <span class="badge">2021–2025</span></h4>
+              <p>CGPA: <strong>9.68</strong> (current)</p>
+            </div>
+            <div class="timeline__item">
+              <h4>Intermediate (MPC), Krishnachaitanya Junior College <span class="badge">2019–2021</span></h4>
+              <p>Percentage: <strong>94.2%</strong></p>
+            </div>
+            <div class="timeline__item">
+              <h4>SSC, Sri Vani English High School <span class="badge">2018–2019</span></h4>
+              <p>GPA: <strong>8.7</strong></p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- =========================
+       Skills
+       ========================= -->
+  <section id="skills">
+    <div class="container">
+      <div class="section__head">
+        <h2 class="section__title">Skills</h2>
+        <p class="section__sub">Tech I use and enjoy</p>
+      </div>
+      <div class="grid">
+        <div class="card" style="grid-column: span 12">
+          <div class="skills">
+            <span class="chip"><i class="fa-brands fa-html5"></i> HTML</span>
+            <span class="chip"><i class="fa-brands fa-css3-alt"></i> CSS</span>
+            <span class="chip"><i class="fa-brands fa-square-js"></i> JavaScript</span>
+            <span class="chip"><i class="fa-brands fa-python"></i> Python</span>
+            <span class="chip"><i class="fa-solid fa-microchip"></i> Verilog</span>
+            <span class="chip"><i class="fa-solid fa-universal-access"></i> Accessibility</span>
+            <span class="chip"><i class="fa-solid fa-mobile-screen-button"></i> Responsive Design</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- =========================
+       Projects
+       ========================= -->
+  <section id="projects">
+    <div class="container">
+      <div class="section__head">
+        <h2 class="section__title">Projects</h2>
+        <p class="section__sub">A few things I’ve built</p>
+      </div>
+
+      <div class="grid">
+        <article class="card project">
+          <h4>Ultrasonic Distance Meter</h4>
+          <p>Built using an ultrasonic sensor to measure distance, with a microcontroller and LCD readout. Focused on reliability and noise handling.</p>
+          <div>
+            <a class="btn btn--ghost" href="#" aria-disabled="true">Code (private)</a>
+          </div>
+        </article>
+
+        <article class="card project">
+          <h4>Smart Parking (Arduino)</h4>
+          <p>Prototype for parking slot detection and guidance using sensors and microcontrollers. Improved slot allocation time and feedback.</p>
+          <div>
+            <a class="btn btn--ghost" href="#" aria-disabled="true">Code (private)</a>
+          </div>
+        </article>
+
+        <article class="card project">
+          <h4>Personal Portfolio Website</h4>
+          <p>Responsive, accessible static site built with semantic HTML/CSS and a touch of JavaScript for interactivity. You’re looking at it ✨</p>
+          <div>
+            <a class="btn btn--ghost" href="#top">Live</a>
+            <a class="btn btn--ghost" href="https://github.com/Bhavanam-BH" target="_blank" rel="noreferrer noopener">Repo</a>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- =========================
+       Certificates
+       ========================= -->
+  <section id="certificates">
+    <div class="container">
+      <div class="section__head">
+        <h2 class="section__title">Certificates</h2>
+        <p class="section__sub">Some highlights</p>
+      </div>
+
+      <div class="grid">
+        <div class="card cert">
+          <div>
+            <h4>E‑hunt Coordinator</h4>
+            <p class="muted">Leadership & event coordination</p>
+          </div>
+          <a class="btn btn--ghost" href="https://drive.google.com/file/d/1JgKzHkqdbtxVllTVuZl9O82H1geyP-Tz/view?usp=sharing" target="_blank" rel="noreferrer noopener"><i class="fa-regular fa-eye"></i> View</a>
+        </div>
+
+        <div class="card cert">
+          <div>
+            <h4>VLSI Frontend</h4>
+            <p class="muted">Foundations in design & verification</p>
+          </div>
+          <a class="btn btn--ghost" href="https://drive.google.com/file/d/15XsoqOaERUOHpmsdOXyXIUHcQb3wXx6a/view?usp=sharing" target="_blank" rel="noreferrer noopener"><i class="fa-regular fa-eye"></i> View</a>
+        </div>
+
+        <div class="card cert">
+          <div>
+            <h4>VLSI Backend (PD)</h4>
+            <p class="muted">Physical design concepts</p>
+          </div>
+          <a class="btn btn--ghost" href="https://drive.google.com/file/d/1JgKzHkqdbtxVllTVuZl9O82H1geyP-Tz/view?usp=sharing" target="_blank" rel="noreferrer noopener"><i class="fa-regular fa-eye"></i> View</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- =========================
+       Contact
+       ========================= -->
+  <section id="contact">
+    <div class="container">
+      <div class="section__head">
+        <h2 class="section__title">Contact</h2>
+        <p class="section__sub">Let’s build something together</p>
+      </div>
+
+      <div class="grid">
+        <div class="card" style="grid-column: span 7">
+          <form action="https://api.web3forms.com/submit" method="POST">
+            <input type="hidden" name="access_key" value="9d220470-ac8c-4655-98d7-bf78cd3e3b54" />
+            <label class="sr-only" for="name">Name</label>
+            <input id="name" name="name" placeholder="Your Name" required />
+
+            <label class="sr-only" for="email">Email</label>
+            <input id="email" type="email" name="email" placeholder="Your Email" required />
+
+            <label class="sr-only" for="message">Message</label>
+            <textarea id="message" name="message" placeholder="Your Message" required></textarea>
+
+            <div class="actions">
+              <span style="color: var(--muted); font-size: .9rem;">I usually reply within 24–48 hours.</span>
+              <button class="btn btn--primary" type="submit"><i class="fa-regular fa-paper-plane"></i> Send</button>
+            </div>
+          </form>
+        </div>
+
+        <aside class="card" style="grid-column: span 5">
+          <h4>Elsewhere</h4>
+          <p class="muted">Connect with me on these platforms:</p>
+          <div class="skills">
+            <a class="btn btn--ghost" href="https://github.com/Bhavanam-BH" target="_blank" rel="noreferrer noopener"><i class="fa-brands fa-github"></i> GitHub</a>
+            <a class="btn btn--ghost" href="https://www.linkedin.com/in/venkata-bhavana-muli-0b807a377" target="_blank" rel="noreferrer noopener"><i class="fa-brands fa-linkedin"></i> LinkedIn</a>
+            <a class="btn btn--ghost" href="mailto:example@email.com"><i class="fa-regular fa-envelope"></i> Email</a>
+          </div>
+        </aside>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="container" style="display:flex; align-items:center; justify-content:space-between; gap: 12px; flex-wrap: wrap;">
+      <span>© <span id="year"></span> Venkata Bhavana Muli</span>
+      <a class="btn btn--ghost" href="#top" aria-label="Back to top"><i class="fa-solid fa-arrow-up"></i> Back to top</a>
+    </div>
+  </footer>
+
+  <script>
+    // Backfill year
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // Mobile menu toggle
+    const menuBtn = document.querySelector('.nav__menu-btn');
+    const menu = document.getElementById('menu');
+    menuBtn?.addEventListener('click', () => {
+      const isOpen = menu.getAttribute('data-open') === 'true';
+      menu.setAttribute('data-open', String(!isOpen));
+      menuBtn.setAttribute('aria-expanded', String(!isOpen));
+      menuBtn.innerHTML = isOpen ? '<i class="fa-solid fa-bars"></i>' : '<i class="fa-solid fa-xmark"></i>';
+    });
+
+    // Scroll spy with IntersectionObserver
+    const sections = Array.from(document.querySelectorAll('section[id]'));
+    const links = Array.from(document.querySelectorAll('#menu a[href^="#"]'));
+    const map = new Map(sections.map(sec => [sec.id, links.find(a => a.getAttribute('href') === `#${sec.id}`)]));
+
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        const link = map.get(entry.target.id);
+        if (!link) return;
+        if (entry.isIntersecting) {
+          links.forEach(a => a.removeAttribute('aria-current'));
+          link.setAttribute('aria-current', 'page');
+        }
+      });
+    }, { rootMargin: '-40% 0px -50% 0px', threshold: 0.01 });
+
+    sections.forEach(sec => observer.observe(sec));
+
+    // Close mobile menu after clicking a link
+    links.forEach(link => link.addEventListener('click', () => {
+      if (window.matchMedia('(max-width: 900px)').matches) {
+        menu.setAttribute('data-open', 'false');
+        menuBtn.setAttribute('aria-expanded', 'false');
+        menuBtn.innerHTML = '<i class="fa-solid fa-bars"></i>';
+      }
+    }));
+  </script>
+</body>
+</html>
